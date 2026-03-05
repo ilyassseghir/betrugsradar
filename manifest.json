@@ -1,46 +1,73 @@
-{
-  "name": "CallSafe - Schutz vor Telefonbetrug",
-  "short_name": "CallSafe",
-  "description": "Hilft dabei, typische Telefonbetrugsmaschen zu erkennen und verdächtige Nummern zu melden.",
-  "start_url": "./index.html",
-  "scope": "./",
-  "display": "standalone",
-  "background_color": "#f3f4f6",
-  "theme_color": "#111827",
-  "orientation": "portrait-primary",
-  "icons": [
-    {
-      "src": "icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ],
-  "categories": ["utilities", "education"],
-  "shortcuts": [
-    {
-      "name": "Nummer prüfen",
-      "short_name": "Prüfen",
-      "description": "Telefonnummer prüfen",
-      "url": "./index.html?page=check"
-    },
-    {
-      "name": "Lernen",
-      "short_name": "Lernen",
-      "description": "Betrugsmaschen ansehen",
-      "url": "./index.html?page=learn"
-    },
-    {
-      "name": "Nummer melden",
-      "short_name": "Melden",
-      "description": "Verdächtige Nummer melden",
-      "url": "./index.html?page=report"
-    }
-  ]
-}
+const CACHE_NAME = 'CallSafe-v3'; 
+const urlsToCache = [
+  './',
+  './index.html',
+  './style.css',
+  './app.js',
+  './manifest.json',
+  './supabase-db.js'
+];
+
+// Install Service Worker
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => {
+        console.log('Cache opened');
+        return cache.addAll(urlsToCache);
+      })
+  );
+});
+
+// Fetch from cache
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => {
+        // Cache hit - return response
+        if (response) {
+          return response;
+        }
+
+        return fetch(event.request).then(
+          response => {
+            // Check if valid response
+            if (!response || response.status !== 200 || response.type !== 'basic') {
+              return response;
+            }
+
+            // Clone the response
+            const responseToCache = response.clone();
+
+            caches.open(CACHE_NAME)
+              .then(cache => {
+                cache.put(event.request, responseToCache);
+              });
+
+            return response;
+          }
+        );
+      })
+      .catch(() => {
+        // Return offline page if available
+        return caches.match('./index.html');
+      })
+  );
+});
+
+// Update Service Worker
+self.addEventListener('activate', event => {
+  const cacheWhitelist = [CACHE_NAME];
+  
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
+          if (cacheWhitelist.indexOf(cacheName) === -1) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+  );
+});
