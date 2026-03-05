@@ -1,31 +1,120 @@
-# Betrugsradar
+# CallSafe - Anti-Betrugs Web App
 
-Betrugsradar ist ein Studienprojekt (WiSe 25/26) zur Entwicklung eines App-/Web-App-Prototyps, der verdächtige Betrugsanrufe erkennt (Abgleich mit bekannten Betrugsnummern) und Nutzer:innen – insbesondere Senior:innen – warnt und aufklärt.
+Eine Progressive Web App (PWA) zum Schutz vor Telefonbetrug, speziell entwickelt für Senioren.
 
-## Ziele
-- Erkennung verdächtiger Anrufe per Datenbankabgleich
-- Warnhinweise für Nutzer:innen
-- Lernmodule/Quiz zur Aufklärung über aktuelle Betrugsmaschen
-- Fokus auf einfache, seniorengerechte UX
+# Funktionen
 
-## Geplanter Funktionsumfang
-- [ ] Abgleich eingehender Nummern mit Datenquelle (z. B. tellows / OpenData)
-- [ ] Warnscreen / Hinweislogik
-- [ ] Lernbereich (Module/Quiz)
-- [ ] Demo-/Simulationsmodus
+### 1. **Nummernprüfung (Check)**
+- Eingabe verdächtiger Telefonnummern
+- Farbcodierte Risikoeinschätzung:
+  - 🟡 GELB: Verdächtig gemeldet
+  - 🔴 ROT: Bestätigter Betrug
+- Klare Begründung und Kategorisierung
+- Handlungsempfehlungen
 
-## Tech Stack
-TBD (wird ergänzt, sobald entschieden)
+### 2. **Lernbereich (Wissen)**
+- 6 themenspezifische Module:
+  - Enkeltrick
+  - Falsche Polizisten
+  - Schockanrufe
+  - Bank / TAN-Betrug
+  - Tech-Support Betrug
+  - Gewinnspiele
+- Einfache Sprache für Senioren
+- Merksätze & Checklisten
+- Offline verfügbar dank PWA
 
-## Lokales Setup / Start
-Coming soon (wird ergänzt)
+### 3. **Quiz & Simulationen**
+- 3-5 praxisnahe Fragen pro Thema
+- Sofort-Feedback nach jeder Antwort
+- Realitätsnahe Szenarien
+- Interaktive Lernkontrolle
 
-## Team-Workflow (kurz)
-- Keine direkten Commits auf `main`
-- Änderungen über Branches (`feature/...`, `fix/...`) + Pull Requests
-- Kleine PRs, mind. 1 Review vor Merge
+### 4. **Meldefunktion**
+- Community-Schutz durch Meldungen
+- Einfacher Prozess mit Kategorisierung
+- Verlinkung zu offiziellen Meldestellen (Bundesnetzagentur)
+- Automatische Blacklist-Aktualisierung
 
-## Struktur
-- `/app` – Frontend
-- `/backend` – Backend (falls benötigt)
-- `/docs` – Dokumentation, Architektur, Notizen
+### 5. **Admin-Bereich**
+- Statistiken (Prüfungen, Meldungen, Quiz)
+- Datenbankverwaltung (Whitelist/Blacklist)
+- Analytik der Meldungen
+- A/B-Test Vorbereitung für Warntexte
+
+### 6. **PWA Features**
+- Installierbar ohne App Store
+- Offline-Nutzung möglich
+- Schnelle Updates
+- Barrierefreie Bedienung
+
+## Installation & Nutzung
+
+
+### PWA installieren
+
+1. App im Browser öffnen
+2. Bei Erscheinen des Install-Prompts auf "Installieren" klicken
+3. Oder manuell über Browser-Menü → "App installieren"
+
+
+## 🎨 Design-Prinzipien
+
+- **Seniorenfreundlich:**
+  - Große, klare Schriftarten (min. 18px)
+  - Hoher Kontrast
+  - Einfache Navigation
+  - Keine überwältigenden Informationen
+
+- **Barrierefreiheit:**
+  - Klare Farbcodierung
+  - Große Touch-Targets
+  - Keine Zeitlimits
+  - Einfache Sprache
+
+- **Vertrauen:**
+  - Warme, beruhigende Farben
+  - Klare Statusmeldungen
+  - Keine Panikmache
+  - Positive Verstärkung
+
+
+
+### Datenbank (Simulation)
+-Supabase 
+// reports - Meldungen
+
+// numbers - Betrugsnummern
+
+
+
+
+## Datenschutz
+
+- Alle Daten werden lokal gespeichert (LocalStorage)
+- Keine Server-Kommunikation
+- Keine Cookies
+- Keine Tracking-Tools
+- Vollständig offline nutzbar
+
+## Zukünftige Erweiterungen
+
+- [ ] Backend-Integration für echte Datenbank
+- [ ] Push-Benachrichtigungen bei neuen Betrugswellen
+- [ ] Spracherkennung für Anruferkennung
+- [ ] Community-Features
+- [ ] Mehrsprachigkeit
+- [ ] Export von Statistiken
+- [ ] Integration mit Bundesnetzagentur-API
+
+## Entwickler
+Diese App wurde als Studienprojekt entwickelt.
+
+Master IT-Studienprojekt von:
+- Achraf Salem
+- Saad Ahmito
+- Ilyass Seghir
+
+
+
+**Hinweis:** Diese App ersetzt keine offizielle Beratung. Bei Betrugsfällen kontaktieren Sie die Polizei (110) und die Bundesnetzagentur.
